@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="rabbit_house_menu.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:rabbit_house_menu.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Padding="30" Orientation="Vertical">
+        <TextBlock FontSize="32" FontWeight="Bold">Settings</TextBlock>
+
+        <TextBlock FontSize="24" FontWeight="SemiBold">Links</TextBlock>
+        <StackPanel>
+            <HyperlinkButton NavigateUri="https://github.com/Leomotors/rabbit-house-menu">GitHub</HyperlinkButton>
+            <HyperlinkButton Click="ViewLicense_Clicked">View License</HyperlinkButton>
+        </StackPanel>
+    </StackPanel>
+</Page>
