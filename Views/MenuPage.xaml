@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Padding="30" Orientation="Vertical">
-        <TextBlock FontSize="32">Rabbit House's Menu</TextBlock>
+    <StackPanel Padding="30,0,30,0" Orientation="Vertical">
+        <TextBlock FontSize="32" FontWeight="Bold">Rabbit House's Menu</TextBlock>
+        <TextBlock FontSize="24">Main of Menu is currently Work in Progress</TextBlock>
     </StackPanel>
 </Page>

@@ -67,9 +67,20 @@ namespace rabbit_house_menu.Data
         }
     }
 
-    class MenusManager
+    public class MenuPlus : Menu
+    {
+        public string category { get; private set; }
+
+        public MenuPlus(Label name, Price price, string category) : base(name, price)
+        {
+            this.category = category;
+        }
+    }
+
+    public static class MenusManager
     {
         public static Dictionary<string, List<Menu>> menus { get; private set; }
+        public static List<MenuPlus> AllMenus { get; private set; }
 
         public static async Task loadData()
         {
@@ -81,6 +92,7 @@ namespace rabbit_house_menu.Data
 
             var rootObj = JsonObject.Parse(jsonString);
             menus = new Dictionary<string, List<Menu>>();
+            AllMenus = new List<MenuPlus>();
 
             foreach (var item in rootObj)
             {
@@ -91,11 +103,22 @@ namespace rabbit_house_menu.Data
 
                 foreach (var menu in cate_menus)
                 {
-                    menusList.Add(parseMenu(menu));
+                    var parsed = parseMenu(menu);
+                    menusList.Add(parsed);
+                    AllMenus.Add(new MenuPlus(parsed.name, parsed.price, category));
                 }
 
                 menus[category] = menusList;
             }
+
+            // Easter Egg, all my program should has Rick Roll, lol.
+            AllMenus.Add(
+                new MenuPlus(
+                    new Label("Rick Astley", "リック・アストリー"),
+                    new Price(69, 420),
+                    "Cursed"
+                   )
+                );
         }
 
         private static Menu parseMenu(IJsonValue menu)

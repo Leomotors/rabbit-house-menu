@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,6 +28,10 @@ namespace rabbit_house_menu.Views
         public SettingsPage()
         {
             this.InitializeComponent();
+
+            // Copied from microsoft/Xaml-Controls-Gallery
+            var version = Windows.ApplicationModel.Package.Current.Id.Version;
+            AppVersion.Text = $"Version: {version.Major}.{version.Minor} Build {version.Build}.{version.Revision}";
         }
 
         private async void ViewLicense_Clicked(object sender, RoutedEventArgs e)
@@ -36,10 +42,13 @@ namespace rabbit_house_menu.Views
                 )
             );
 
+            const string tmpToken = "__@$";
+
             var dialog = new ContentDialog
             {
                 Title = "LICENSE",
-                Content = License,
+                // Remove "\n" but not "\n\n"
+                Content = License.Replace("\n\n", tmpToken).Replace("\n", " ").Replace(tmpToken, "\n\n"),
                 CloseButtonText = "Close"
             };
 

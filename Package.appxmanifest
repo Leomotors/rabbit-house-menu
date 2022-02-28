@@ -8,14 +8,14 @@
 
   <Identity
     Name="6c3653c0-da4f-4308-8029-9403ca887c2e"
-    Publisher="CN=npong"
-    Version="1.0.0.0" />
+    Publisher="CN=Leomotors"
+    Version="1.0.15.0" />
 
   <mp:PhoneIdentity PhoneProductId="6c3653c0-da4f-4308-8029-9403ca887c2e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>rabbit-house-menu</DisplayName>
-    <PublisherDisplayName>npong</PublisherDisplayName>
+    <PublisherDisplayName>Leomotors</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -37,13 +37,9 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Rabbit House へようこそ"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
-
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>

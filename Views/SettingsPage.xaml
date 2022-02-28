@@ -7,13 +7,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Padding="30" Orientation="Vertical">
-        <TextBlock FontSize="32" FontWeight="Bold">Settings</TextBlock>
+    <StackPanel Padding="30,0,30,0" Orientation="Vertical">
+        <TextBlock
+            Margin="0,0,0,20"
+            FontSize="32"
+            FontWeight="Bold">
+            Settings
+        </TextBlock>
 
         <TextBlock FontSize="24" FontWeight="SemiBold">Links</TextBlock>
         <StackPanel>
-            <HyperlinkButton NavigateUri="https://github.com/Leomotors/rabbit-house-menu">GitHub</HyperlinkButton>
-            <HyperlinkButton Click="ViewLicense_Clicked">View License</HyperlinkButton>
+            <HyperlinkButton NavigateUri="https://github.com/Leomotors/rabbit-house-menu">
+                GitHub Project
+            </HyperlinkButton>
+            <HyperlinkButton Click="ViewLicense_Clicked">
+                View License
+            </HyperlinkButton>
+            <HyperlinkButton NavigateUri="https://github.com/SaltyAom/is-the-order-a-rabbit-api">
+                Source of Rabbit House's Menu
+            </HyperlinkButton>
         </StackPanel>
+
+        <TextBlock
+            Margin="0,20,0,20"
+            FontSize="32"
+            FontWeight="Bold">
+            About App
+        </TextBlock>
+        <StackPanel>
+            <TextBlock x:Name="AppVersion" FontSize="16" />
+        </StackPanel>
+
+        <Image
+            MaxWidth="600"
+            Margin="0,30,0,0"
+            HorizontalAlignment="Left"
+            Source="ms-appx:///Assets/Images/Cocoa.gif" />
     </StackPanel>
 </Page>

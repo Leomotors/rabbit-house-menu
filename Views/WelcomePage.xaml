@@ -7,9 +7,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Padding="30" Orientation="Vertical">
-        <TextBlock FontSize="48" FontWeight="Bold">Welcome to Rabbit House!</TextBlock>
-        <Image Margin="0,30,0,30" Source="ms-appx:///Assets/Images/WelcomeToRabbitHouse.jpg" />
-        <TextBlock FontSize="32" TextAlignment="Center">ご注文は？</TextBlock>
+
+    <StackPanel Padding="30,0,30,0" Orientation="Vertical">
+        <TextBlock
+            FontSize="48"
+            FontWeight="Bold"
+            TextAlignment="Center">
+            Welcome to Rabbit House!
+        </TextBlock>
+        <TextBlock
+            FontSize="36"
+            FontWeight="SemiBold"
+            TextAlignment="Center">
+            ラビットハウスへようこそ!
+        </TextBlock>
+
+        <ScrollViewer x:Name="PageScrollViewer" Padding="0,30,0,30">
+            <StackPanel>
+                <Image
+                    MaxWidth="800"
+                    Margin="0,0,0,30"
+                    Source="ms-appx:///Assets/Images/WelcomeToRabbitHouse.jpg" />
+                <TextBlock FontSize="32" TextAlignment="Center">ご注文は？</TextBlock>
+                <AutoSuggestBox
+                    MaxWidth="400"
+                    Margin="20"
+                    QueryIcon="Find"
+                    SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                    TextChanged="AutoSuggestBox_TextChanged" />
+                <TextBlock
+                    x:Name="MenuSearchResult"
+                    FontSize="18"
+                    FontWeight="Medium"
+                    TextAlignment="Center" />
+            </StackPanel>
+        </ScrollViewer>
     </StackPanel>
 </Page>

@@ -33,15 +33,8 @@ namespace rabbit_house_menu.Views
 
             var param = e.Parameter as string;
 
-            CategoryText.Text = param ?? "Unknown Category (Unexpected Error)";
-
-            try
-            {
-                ShowMenu(param);
-            }
-            catch (Exception ex)
-            {
-            }
+            CategoryText.Text = param;
+            ShowMenu(param);
         }
 
         public List<Data.Menu> ThisMenu { get; set; }
