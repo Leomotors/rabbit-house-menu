@@ -86,7 +86,7 @@ public static class MenusManager
     public static Dictionary<string, List<Menu>> RabbitHouseMenu { get; private set; }
     public static Dictionary<string, List<Menu>> FleurDeLapinMenu { get; private set; }
 
-    public static List<MenuPlus> AllMenus { get; private set; }
+    public static List<MenuPlus> AllMenus { get; private set; } = new();
 
     public static async Task LoadAllData()
     {
@@ -107,7 +107,6 @@ public static class MenusManager
 
         var rootObj = JsonObject.Parse(jsonString);
         var menus = new Dictionary<string, List<Menu>>();
-        AllMenus = new List<MenuPlus>();
 
         foreach (var item in rootObj)
         {

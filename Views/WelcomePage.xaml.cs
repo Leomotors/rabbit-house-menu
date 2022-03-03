@@ -24,7 +24,7 @@ public sealed partial class WelcomePage : Page
 {
     public WelcomePage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
 
         // https://social.msdn.microsoft.com/Forums/sqlserver/en-US/3645fc1b-f7b3-467d-b2d5-489065e8580c/uwp-how-to-get-windows-width-and-height-to-reorganize-bottom-toolbar-buttons?forum=wpdevelop
         SizeChanged += OnSizeChanged;
@@ -89,7 +89,7 @@ public sealed partial class WelcomePage : Page
                     return;
                 }
 
-                MenuSearchResult.Text = $"{menu.name.ja} ({menu.name.en}) is in the category of \"{menu.category}\"";
+                MenuSearchResult.Text = $"{menu.name.ja} ({menu.name.en}) is in \"{menu.category}\" of \"{menu.Restaurant}\"";
                 return;
             }
         }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿global using MUXC = Microsoft.UI.Xaml.Controls;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,8 +30,8 @@ sealed partial class App : Application
     /// </summary>
     public App()
     {
-        this.InitializeComponent();
-        this.Suspending += OnSuspending;
+        InitializeComponent();
+        Suspending += OnSuspending;
     }
 
     /// <summary>

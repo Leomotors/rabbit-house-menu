@@ -27,7 +27,7 @@ public sealed partial class SettingsPage : Page
 {
     public SettingsPage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
 
         // Copied from microsoft/Xaml-Controls-Gallery
         var version = Windows.ApplicationModel.Package.Current.Id.Version;

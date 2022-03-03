@@ -24,7 +24,7 @@ public sealed partial class MenuPage : Page
 {
     public MenuPage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -33,6 +33,6 @@ public sealed partial class MenuPage : Page
 
         var res = e.Parameter as Restaurant?;
 
-        Title.Text = res == Restaurant.RABBIT_HOUSE ? "Rabbit House" : "Fleur De Lapin" + "'s Menu";
+        Title.Text = $"{RestaurantUtil.Resolve(res)}'s Menu";
     }
 }
