@@ -160,6 +160,9 @@
     <Content Include="Assets\Images\Cocoa.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\RabbitHouse.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\SyaroMakasenasai.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -221,6 +224,7 @@
     <Content Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="StoreLogo.scale-400.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

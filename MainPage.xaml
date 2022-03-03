@@ -46,7 +46,7 @@
                 <muxc:NavigationViewItem x:Name="RabbitHouseMenu">
                     Rabbit House
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/StoreLogo.scale-400.png" />
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Images/RabbitHouse.png" />
                     </muxc:NavigationViewItem.Icon>
                     <muxc:NavigationViewItem.MenuItems />
                 </muxc:NavigationViewItem>
