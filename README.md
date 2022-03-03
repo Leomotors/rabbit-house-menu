@@ -15,3 +15,9 @@ Also my **first** C# Windows Project
 <p align="center">
 ラビットハウスへようこそ～ ご注文は？
 </p>
+
+Fleur De Lapin Menu Credits
+
+- [Gochiusa Fandom](https://gochiusa.fandom.com/wiki/Fleur_de_Lapin)
+
+- [Japanese Name](https://dic.pixiv.net/a/フルール・ド・ラパン)

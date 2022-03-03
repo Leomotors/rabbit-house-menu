@@ -9,12 +9,12 @@
   <Identity
     Name="6c3653c0-da4f-4308-8029-9403ca887c2e"
     Publisher="CN=Leomotors"
-    Version="1.0.15.0" />
+    Version="1.0.17.0" />
 
   <mp:PhoneIdentity PhoneProductId="6c3653c0-da4f-4308-8029-9403ca887c2e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>rabbit-house-menu</DisplayName>
+    <DisplayName>Rabbit House Menu</DisplayName>
     <PublisherDisplayName>Leomotors</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

@@ -43,8 +43,15 @@
         <muxc:NavigationView Loaded="NavigationView_Loaded" SelectionChanged="NavigationView_SelectionChanged">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="Welcome" Icon="Home">Welcome!</muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="Menu">
-                    Menu
+                <muxc:NavigationViewItem x:Name="RabbitHouseMenu">
+                    Rabbit House
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDE3;" />
+                    </muxc:NavigationViewItem.Icon>
+                    <muxc:NavigationViewItem.MenuItems />
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="FleurDeLapinMenu">
+                    Fleur De Lapin
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDE3;" />
                     </muxc:NavigationViewItem.Icon>

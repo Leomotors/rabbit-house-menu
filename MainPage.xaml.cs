@@ -28,7 +28,7 @@ namespace rabbit_house_menu
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        readonly Task task = Data.MenusManager.loadData();
+        readonly Task task = Data.MenusManager.LoadAllData();
 
         public MainPage()
         {
@@ -111,16 +111,24 @@ namespace rabbit_house_menu
 
             await task;
 
-            var categoryMenus = Menu.MenuItems;
-
-            foreach (var entry in Data.MenusManager.menus)
+            foreach (var entry in Data.MenusManager.RabbitHouseMenu)
             {
                 var menu = new MUXC.NavigationViewItem
                 {
                     Content = entry.Key
                 };
 
-                categoryMenus.Add(menu);
+                RabbitHouseMenu.MenuItems.Add(menu);
+            }
+
+            foreach (var entry in Data.MenusManager.FleurDeLapinMenu)
+            {
+                var menu = new MUXC.NavigationViewItem
+                {
+                    Content = entry.Key
+                };
+
+                FleurDeLapinMenu.MenuItems.Add(menu);
             }
         }
 
@@ -138,9 +146,13 @@ namespace rabbit_house_menu
             {
                 contentFrame.Navigate(typeof(Views.WelcomePage));
             }
-            else if (selected == Menu)
+            else if (selected == RabbitHouseMenu)
             {
-                contentFrame.Navigate(typeof(Views.MenuPage));
+                contentFrame.Navigate(typeof(Views.MenuPage), Views.Restaurant.RABBIT_HOUSE);
+            }
+            else if (selected == FleurDeLapinMenu)
+            {
+                contentFrame.Navigate(typeof(Views.MenuPage), Views.Restaurant.FLEUR_DE_LAPIN);
             }
             else
             {
@@ -148,7 +160,21 @@ namespace rabbit_house_menu
 
                 var cate = selected.Content as string;
 
-                contentFrame.Navigate(typeof(Views.CategoryPage), cate);
+                Views.Restaurant restaurant;
+
+                if (RabbitHouseMenu.MenuItems.IndexOf(selected) != -1)
+                {
+                    restaurant = Views.Restaurant.RABBIT_HOUSE;
+                }
+                else
+                {
+                    restaurant = Views.Restaurant.FLEUR_DE_LAPIN;
+                }
+
+                contentFrame.Navigate(
+                    typeof(Views.CategoryPage),
+                    new Views.CategoryPayload(cate, restaurant)
+                );
             }
         }
     }
