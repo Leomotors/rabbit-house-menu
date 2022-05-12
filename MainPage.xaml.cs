@@ -1,35 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Windows.ApplicationModel.Core;
 using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
-using Windows.ApplicationModel.Core;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+#nullable enable
 
 namespace rabbit_house_menu;
 
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class MainPage : Page
-{
-    readonly Task task = Data.MenusManager.LoadAllData();
+public sealed partial class MainPage : Page {
+    private readonly Task task = Data.MenusManager.LoadAllData();
 
-    public MainPage()
-    {
+    public MainPage() {
         InitializeComponent();
 
         // These below code along with methods are copied from
@@ -60,69 +43,54 @@ public sealed partial class MainPage : Page
         Window.Current.Activated += Current_Activated;
     }
 
-    private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-    {
+    private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args) {
         UpdateTitleBarLayout(sender);
     }
 
-    private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
-    {
+    private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar) {
         // Update title bar control size as needed to account for system size changes.
         AppTitleBar.Height = coreTitleBar.Height;
 
         // Ensure the custom title bar does not overlap window caption controls
-        Thickness currMargin = AppTitleBar.Margin;
+        var currMargin = AppTitleBar.Margin;
         AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
     }
 
-    private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
-    {
-        if (sender.IsVisible)
-        {
+    private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args) {
+        if (sender.IsVisible) {
             AppTitleBar.Visibility = Visibility.Visible;
-        }
-        else
-        {
+        } else {
             AppTitleBar.Visibility = Visibility.Collapsed;
         }
     }
 
     // Update the TitleBar based on the inactive/active state of the app
-    private void Current_Activated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
-    {
-        SolidColorBrush defaultForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
-        SolidColorBrush inactiveForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorDisabledBrush"];
+    private void Current_Activated(object sender, Windows.UI.Core.WindowActivatedEventArgs e) {
+        var defaultForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
+        var inactiveForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorDisabledBrush"];
 
-        if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
-        {
+        if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated) {
             AppTitle.Foreground = inactiveForegroundBrush;
-        }
-        else
-        {
+        } else {
             AppTitle.Foreground = defaultForegroundBrush;
         }
     }
 
-    private async void NavigationView_Loaded(object sender, RoutedEventArgs e)
-    {
+    private async void NavigationView_Loaded(object sender, RoutedEventArgs e) {
         contentFrame.Navigate(typeof(Views.WelcomePage));
 
         await task;
 
-        foreach (var entry in Data.MenusManager.RabbitHouseMenu)
-        {
-            var menu = new MUXC.NavigationViewItem
-            {
+        foreach (var entry in Data.MenusManager.RabbitHouseMenu) {
+            MUXC.NavigationViewItem menu = new() {
                 Content = entry.Key
             };
 
             RabbitHouseMenu.MenuItems.Add(menu);
         }
 
-        foreach (var entry in Data.MenusManager.FleurDeLapinMenu)
-        {
-            var menu = new MUXC.NavigationViewItem
-            {
+        foreach (var entry in Data.MenusManager.FleurDeLapinMenu) {
+            MUXC.NavigationViewItem menu = new() {
                 Content = entry.Key
             };
 
@@ -130,49 +98,34 @@ public sealed partial class MainPage : Page
         }
     }
 
-    private void NavigationView_SelectionChanged(object sender, MUXC.NavigationViewSelectionChangedEventArgs args)
-    {
-        if (args.IsSettingsSelected)
-        {
+    private void NavigationView_SelectionChanged(object sender, MUXC.NavigationViewSelectionChangedEventArgs args) {
+        if (args.IsSettingsSelected) {
             contentFrame.Navigate(typeof(Views.SettingsPage));
             return;
         }
 
         var selected = args.SelectedItem as MUXC.NavigationViewItem;
 
-        if (selected == Welcome)
-        {
+        if (selected == Welcome) {
             contentFrame.Navigate(typeof(Views.WelcomePage));
-        }
-        else if (selected == RabbitHouseMenu)
-        {
+        } else if (selected == RabbitHouseMenu) {
             contentFrame.Navigate(typeof(Views.MenuPage), Views.Restaurant.RABBIT_HOUSE);
-        }
-        else if (selected == FleurDeLapinMenu)
-        {
+        } else if (selected == FleurDeLapinMenu) {
             contentFrame.Navigate(typeof(Views.MenuPage), Views.Restaurant.FLEUR_DE_LAPIN);
-        }
-        else if (selected == ShoppingCart)
-        {
+        } else if (selected == ShoppingCart) {
             contentFrame.Navigate(typeof(Views.CartPage));
-        }
-        else
-        {
+        } else {
             // Probably NavigationView.MenuItems
 
-            var cate = selected.Content as string;
-
-            if (cate is null)
+            if (selected.Content is not string cate) {
                 return;
+            }
 
             Views.Restaurant restaurant;
 
-            if (RabbitHouseMenu.MenuItems.IndexOf(selected) != -1)
-            {
+            if (RabbitHouseMenu.MenuItems.IndexOf(selected) != -1) {
                 restaurant = Views.Restaurant.RABBIT_HOUSE;
-            }
-            else
-            {
+            } else {
                 restaurant = Views.Restaurant.FLEUR_DE_LAPIN;
             }
 

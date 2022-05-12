@@ -1,86 +1,70 @@
 ﻿// Manual JSON Parsing, HELL
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Windows.Storage;
 using Windows.Data.Json;
+using Windows.Storage;
+
+#nullable enable
 
 namespace rabbit_house_menu.Data;
 
-public class Label
-{
+public class Label {
     public string en { get; set; }
     public string ja { get; set; }
 
-    public Label(string en, string ja)
-    {
+    public Label(string en, string ja) {
         this.en = en;
         this.ja = ja;
     }
 
-    public void Validate()
-    {
-        if (!(en.Length > 0 && ja.Length > 0))
+    public void Validate() {
+        if (!(en.Length > 0 && ja.Length > 0)) {
             throw new Exception($"Invalid Name: {ja} / {en} is Empty");
+        }
     }
 }
 
-public class Price
-{
+public class Price {
     public double jpy { get; set; }
     public double usd { get; set; }
 
-    public Price(double jpy, double usd)
-    {
+    public Price(double jpy, double usd) {
         this.jpy = jpy;
         this.usd = usd;
     }
 
-    public void Validate()
-    {
-        if (!((jpy > 0 || jpy == -1) && (usd > 0 || usd == -1)))
-        {
+    public void Validate() {
+        if (!((jpy > 0 || jpy == -1) && (usd > 0 || usd == -1))) {
             throw new Exception($"Invalid Price: {jpy} / {usd}");
         }
     }
 }
 
-public class Menu
-{
+public class Menu {
     public Label name { get; set; }
     public Price price { get; set; }
 
-    public Menu(Label name, Price price)
-    {
+    public Menu(Label name, Price price) {
         this.name = name;
         this.price = price;
     }
 
-    public void Validate()
-    {
+    public void Validate() {
         name.Validate();
         price.Validate();
     }
 }
 
-public class MenuPlus : Menu
-{
+public class MenuPlus : Menu {
     public string category { get; private set; }
     public string Restaurant { get; private set; }
 
-    public MenuPlus(Label name, Price price, string category, string Restaurant) : base(name, price)
-    {
+    public MenuPlus(Label name, Price price, string category, string Restaurant) : base(name, price) {
         this.category = category;
         this.Restaurant = Restaurant;
     }
 }
 
-public static class MenusManager
-{
+public static class MenusManager {
     private static bool RickRollAdded = false;
 
     public static Dictionary<string, List<Menu>> RabbitHouseMenu { get; private set; }
@@ -88,8 +72,7 @@ public static class MenusManager
 
     public static List<MenuPlus> AllMenus { get; private set; } = new();
 
-    public static async Task LoadAllData()
-    {
+    public static async Task LoadAllData() {
         var promise1 = LoadData("rabbit_house.json", "Rabbit House");
         var promise2 = LoadData("fleur_de_lapin.json", "Fleur De Lapin");
 
@@ -97,9 +80,8 @@ public static class MenusManager
         FleurDeLapinMenu = await promise2;
     }
 
-    private static async Task<Dictionary<string, List<Menu>>> LoadData(string Location, string Restaurant)
-    {
-        string jsonString = await FileIO.ReadTextAsync(
+    private static async Task<Dictionary<string, List<Menu>>> LoadData(string Location, string Restaurant) {
+        var jsonString = await FileIO.ReadTextAsync(
             await StorageFile.GetFileFromApplicationUriAsync(
                 new Uri($"ms-appx:///Data/{Location}")
             )
@@ -108,15 +90,13 @@ public static class MenusManager
         var rootObj = JsonObject.Parse(jsonString);
         var menus = new Dictionary<string, List<Menu>>();
 
-        foreach (var item in rootObj)
-        {
+        foreach (var item in rootObj) {
             var category = item.Key;
             var cate_menus = item.Value.GetArray();
 
             List<Menu> menusList = new();
 
-            foreach (var menu in cate_menus)
-            {
+            foreach (var menu in cate_menus) {
                 var parsed = parseMenu(menu);
                 menusList.Add(parsed);
                 AllMenus.Add(new MenuPlus(parsed.name, parsed.price, category, Restaurant));
@@ -126,8 +106,7 @@ public static class MenusManager
         }
 
         // Easter Egg, all my program should has Rick Roll, lol.
-        if (!RickRollAdded)
-        {
+        if (!RickRollAdded) {
             AllMenus.Add(
               new MenuPlus(
                 new Label("Rick Astley", "リック・アストリー"),
@@ -142,21 +121,20 @@ public static class MenusManager
         return menus;
     }
 
-    private static Menu parseMenu(IJsonValue menu)
-    {
+    private static Menu parseMenu(IJsonValue menu) {
         var menuObj = menu.GetObject();
 
         Label name = new("", "");
         Price price = new(-1, -1);
 
-        foreach (var entry in menuObj)
-        {
-            if (entry.Key == "name")
+        foreach (var entry in menuObj) {
+            if (entry.Key == "name") {
                 name = parseLabel(entry.Value);
-            else if (entry.Key == "price")
+            } else if (entry.Key == "price") {
                 price = parsePrice(entry.Value);
-            else
+            } else {
                 throw new Exception($"Invalid Menu Key: {entry.Key}");
+            }
         }
 
         var newMenu = new Menu(name, price);
@@ -165,39 +143,37 @@ public static class MenusManager
         return newMenu;
     }
 
-    private static Label parseLabel(IJsonValue label)
-    {
+    private static Label parseLabel(IJsonValue label) {
         var labelObj = label.GetObject();
 
         string en = "", ja = "";
 
-        foreach (var entry in labelObj)
-        {
-            if (entry.Key == "en")
+        foreach (var entry in labelObj) {
+            if (entry.Key == "en") {
                 en = entry.Value.GetString();
-            else if (entry.Key == "ja")
+            } else if (entry.Key == "ja") {
                 ja = entry.Value.GetString();
-            else
+            } else {
                 throw new Exception($"Invalid Label Key: {entry.Key}");
+            }
         }
 
         return new Label(en, ja);
     }
 
-    private static Price parsePrice(IJsonValue price)
-    {
+    private static Price parsePrice(IJsonValue price) {
         var priceObj = price.GetObject();
 
         double jpy = 0, usd = 0;
 
-        foreach (var entry in priceObj)
-        {
-            if (entry.Key == "jpy")
+        foreach (var entry in priceObj) {
+            if (entry.Key == "jpy") {
                 jpy = entry.Value.GetNumber();
-            else if (entry.Key == "usd")
+            } else if (entry.Key == "usd") {
                 usd = entry.Value.GetNumber();
-            else
+            } else {
                 throw new Exception($"Invalid Label Key: {entry.Key}");
+            }
         }
 
         return new Price(jpy, usd);
